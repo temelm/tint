@@ -19,8 +19,6 @@
     
     <body>
         <div data-role="page" id="main-menu">
-            <!--<div data-role="header"></div>-->
-            
             <div role="main" class="ui-content">
                 <img src="img/favicon.ico" alt="Logo">
                 <h1>Tint</h1>
@@ -29,22 +27,56 @@
                 <a data-role="button" href="#help">Help</a>
             </div>
             
-            <!--<div data-role="footer"></div>-->
+            <div data-role="footer">&#169; 2015 Mustafa Temel</div>
         </div>
         
         <div data-role="page" id="play">
             <div role="main" class="ui-content">
+                <table id="status">
+                    <tr>
+                        <td id="level"></td>
+                        <td id="time"></td>
+                        <td id="ctrl">
+                            <input alt="Pause" id="pause-btn" src="img/pause-64.ico" title="Pause" type="image" width="48">
+                        </td>
+                    </tr>
+                </table>
+                <div class="center" id="tileset"></div>
             </div>
         </div>
         
-         <div data-role="page" id="stats">
+        <div data-role="page" id="stats">
+            <div data-role="header">
+                <h1>Stats</h1>
+            </div>
+            
             <div role="main" class="ui-content">
+                <!-- TODO -->
+            </div>
+            
+            <div data-role="footer">
+                <a data-role="button" href="#main-menu">Back</a>
             </div>
         </div>
         
          <div data-role="page" id="help">
+            <div data-role="header">
+                <h1>Help</h1>
+            </div>
+            
             <div role="main" class="ui-content">
+                <!-- TODO -->
+            </div>
+            
+            <div data-role="footer">
+                <a data-role="button" href="#main-menu">Back</a>
             </div>
         </div>
+        
+        <script>
+            if (typeof jQuery === "function" && typeof Please === "object" && typeof game === "object") {
+                // TODO: Implement
+            }
+        </script>
     </body>
 </html>
