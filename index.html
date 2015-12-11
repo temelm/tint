@@ -19,15 +19,18 @@
     
     <body>
         <div data-role="page" id="main-menu">
+            <div data-role="header" data-position="fixed">
+                <h1>Tint</h1>
+            </div>
+        
             <div role="main" class="ui-content">
                 <img src="img/favicon.ico" alt="Logo">
-                <h1>Tint</h1>
                 <a href="#play" data-role="button">Play</a>
                 <a href="#stats" data-role="button">Stats</a>
                 <a href="#help" data-role="button">Help</a>
             </div>
             
-            <div data-role="footer">&#169; 2015 Mustafa Temel</div>
+            <div data-role="footer" data-position="fixed">&#169; 2015 Mustafa Temel</div>
         </div>
         
         <div data-role="page" id="play">
@@ -46,21 +49,22 @@
         </div>
         
         <div data-role="page" id="stats">
-            <div data-role="header">
+            <div data-role="header" data-position="fixed">
                 <h1>Stats</h1>
             </div>
             
             <div role="main" class="ui-content">
-                <!-- TODO -->
+                <span>Highest level reached:</span>
+                <span id="highest-level-reached"></span>
             </div>
             
-            <div data-role="footer">
+            <div data-role="footer" data-position="fixed">
                 <a href="#main-menu" data-role="button">Back</a>
             </div>
         </div>
         
          <div data-role="page" id="help">
-            <div data-role="header">
+            <div data-role="header" data-position="fixed">
                 <h1>Help</h1>
             </div>
             
@@ -68,14 +72,62 @@
                 <!-- TODO -->
             </div>
             
-            <div data-role="footer">
+            <div data-role="footer" data-position="fixed">
                 <a href="#main-menu" data-role="button">Back</a>
+            </div>
+        </div>
+        
+        <div data-role="page" id="paused">
+            <div data-role="header">
+                <h1>Paused</h1>
+            </div>
+            
+            <div role="main" class="ui-content">
+                <input alt="Resume" id="resume-btn" src="img/play-resume-64.ico" title="Resume" type="image" width="64">
+                <input alt="Restart" id="restart-btn" src="img/restart-64.ico" title="Restart" type="image" width="64">
+                <input alt="Quit" id="quit-btn" src="img/quit-64.ico" title="Quit" type="image" width="64">
             </div>
         </div>
         
         <script>
             if (typeof jQuery === "function" && typeof Please === "object" && typeof game === "object") {
-                // TODO: Implement
+                jQuery.mobile.defaultPageTransition = "flip";
+                
+                jQuery('#main-menu a[href*="play"]').click(game.start);
+                jQuery('#main-menu a[href*="stats"]').click(function() {
+                    if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function" && window.localStorage.getItem(game.highestLevelReachedKey)) {
+                        jQuery('#highest-level-reached').html(window.localStorage.getItem(game.highestLevelReachedKey));
+                    } else {
+                        jQuery('#highest-level-reached').html('N/A');
+                    }
+                });
+                
+                jQuery('#pause-btn').click(game.pause);
+                
+                jQuery('#resume-btn').click(game.resume);
+                jQuery('#restart-btn').click(game.restart);
+                jQuery('#quit-btn').click(game.quit);
+                
+                game.vertivallyCenterPage = function(pageId) {
+                    if (typeof pageId === "string" && pageId.length > 0 && jQuery('#' + pageId).length > 0) {
+                        var headerHeight = jQuery('#' + pageId + ' [data-role="header"]').height();
+                        var footerHeight = jQuery('#' + pageId + ' [data-role="footer"]').height();
+                        var content = jQuery('#' + pageId + ' .ui-content');
+                        var marginTop = (jQuery(window).height() - headerHeight - footerHeight - jQuery(content).outerHeight()) / 2;
+                        jQuery(content).css('margin-top', marginTop + 'px');
+                    }
+                };
+                jQuery(document).ready(function() {
+                    game.vertivallyCenterPage("main-menu");
+                });
+                
+                jQuery(document).on('pagecontainertransition', function(toPage) {
+                    var pageId = toPage.currentTarget.URL;
+                    if (pageId.match(/\#stats|\#help|\#paused/i)) {
+                        pageId = pageId.match(/\#stats|\#help|\#paused/i)[0].replace("#", "");
+                        game.vertivallyCenterPage(pageId);
+                    }
+                });
             }
         </script>
     </body>

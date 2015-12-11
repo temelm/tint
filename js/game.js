@@ -1,5 +1,6 @@
 var game = {
-	isDebug: true
+	isDebug: true,
+	highestLevelReachedKey: "tintHighestLevelReached"
 };
 
 game.log = function(message, level) {
@@ -125,12 +126,120 @@ game.getNextLevel = function() {
 	}
 };
 
+game.getHighestLevelReached = function() {
+    try {
+        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
+            var r = window.localStorage.getItem(game.highestLevelReachedKey);
+            return (r) ? parseInt(r, 10) : null;
+        }
+        return null;
+    } catch (e) {
+        game.log("getHighestLevelReached: " + e.message, "error");
+    }
+};
+
+game.setHighestLevelReached = function(newHighestLevelReached) {
+    try {
+        if (typeof newHighestLevelReached !== "undefined" && typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
+            window.localStorage.setItem(game.highestLevelReachedKey, newHighestLevelReached);
+        }
+    } catch (e) {
+        game.log("setHighestLevelReached: " + e.message, "error");
+    }
+};
+
+game.countdown = function() {
+	try {
+		game.time -= 1;
+		jQuery('#time').html(game.time);
+		if (game.time === 0) {
+			clearInterval(game.countdownInterval);
+			if (!game.getHighestLevelReached() || game.level > game.getHighestLevelReached()) {
+				game.setHighestLevelReached(game.level);
+			}
+			var r = confirm("GAME OVER!\n\nLEVEL REACHED: " + game.level + "\n\nREPLAY?");
+			(r) ? game.restart(): jQuery.mobile.changePage("#main-menu");
+		}
+	} catch (e) {
+		game.log("countdown: " + e.message, "error");
+	}
+};
+
+game.start = function() {
+    try {
+        game.init();
+        game.addTiles();
+        game.countdownInterval = setInterval(game.countdown, 1000);
+    } catch (e) {
+        game.log("start: " + e.message, "error");
+    }
+};
+
+game.pause = function() {
+    try {
+        clearInterval(game.countdownInterval);
+        jQuery.mobile.changePage("#paused");
+    } catch (e) {
+        game.log("pause: " + e.message, "error");
+    }
+};
+
+game.resume = function() {
+    try {
+        jQuery.mobile.changePage("#play");
+        game.countdownInterval = setInterval(game.countdown, 1000);
+    } catch (e) {
+        game.log("resume: " + e.message, "error");
+    }
+};
+
+game.restart = function() {
+    try {
+        clearInterval(game.countdownInterval);
+        game.init();
+        game.addTiles();
+        jQuery.mobile.changePage("#play");
+        game.countdownInterval = setInterval(game.countdown, 1000);
+    } catch (e) {
+        game.log("restart: " + e.message, "error");
+    }
+};
+
+game.quit = function() {
+    try {
+        clearInterval(game.countdownInterval);
+        jQuery.mobile.changePage("#main-menu");
+    } catch (e) {
+        game.log("quit: " + e.message, "error");
+    }
+};
+
 ////////////////////////////////////////////////////////////////
 
-game.FN = function() {
-    try {
-        // TODO: Implement
-    } catch (e) {
-        game.log("FN: " + e.message, "error");
-    }
+game.useFiftyFiftyJoker = function() {
+	try {
+		function arrayContains(a, e) {
+			for (var i = 0; i < a.length; i++) {
+				if (a[i] === e) {
+					return true;
+				}
+			}
+			return false;
+		}
+		var numTiles = Math.pow(game.getNumRows(), 2);
+		var numTilesToHide = Math.floor(numTiles / 2);
+		var tilesToHide = [];
+		while (numTilesToHide > 0) {
+			var r = Math.floor(Math.random() * numTiles);
+			if (("tile" + r) !== jQuery('.diff').attr('id').trim() && !arrayContains(tilesToHide, "tile" + r)) {
+				tilesToHide.push("tile" + r);
+				numTilesToHide--;
+			}
+		}
+		for (var i = 0; i < tilesToHide.length; i++) {
+			jQuery('#' + tilesToHide[i]).css('visibility', 'hidden');
+		}
+	} catch (e) {
+		game.log("useFiftyFiftyJoker: " + e.message, "error");
+	}
 };

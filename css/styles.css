@@ -1,5 +1,10 @@
-#main-menu, #stats, #help {
+#main-menu, #stats, #help, #paused {
     text-align: center;
+}
+
+#main-menu h1 {
+    color: #38c;
+    text-transform: uppercase;
 }
 
 #status {
@@ -46,6 +51,21 @@
 
 #tileset .tile {
 	cursor: pointer;
+}
+
+#stats .ui-content {
+	font-size: large;
+	margin-bottom: 20px;
+}
+
+#stats .ui-content span {
+	font-style: italic;
+}
+
+#highest-level-reached {
+	color: #ffa500;
+	font-style: normal;
+	font-weight: bold;
 }
 
 @media (max-width: 320px) {

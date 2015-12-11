@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.temelm.tint" version="0.9">
+	<name>Tint</name>
+	
+	<description>
+	    TODO
+	</description>
+	
+	<author email="mustafatemel90@gmail.com">Mustafa Temel</author>
+	
+	<platform name="android"/>
+
+    <preference name="permissions" value="none"/>
+	<preference name="orientation" value="portrait"/>
+
+	<icon src="icon.png"/>
+</widget>
