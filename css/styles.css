@@ -1,10 +1,12 @@
+/**************** BEGIN TODO: REVIEW ****************/
+
 .unselectable {
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
 }
 
-/****************************************************************/
+/**************** END TODO: REVIEW ****************/
 
 #main-menu, #stats, #help, #paused {
     text-align: center;

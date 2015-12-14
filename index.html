@@ -106,9 +106,6 @@
         </div>
         
         <script>
-            /**
-             * TODO: REVIEW
-             */
             if (typeof jQuery === "function" && typeof Please === "object" && typeof game === "object") {
                 jQuery.mobile.defaultPageTransition = "flip";
                 
@@ -123,13 +120,13 @@
                     }
                 });
                 
-                jQuery('#stats a:contains("Clear")').click(game.clearStats);
-                
                 jQuery('#pause-btn').click(game.pause);
                 
                 jQuery('#resume-btn').click(game.resume);
                 jQuery('#restart-btn').click(game.restart);
                 jQuery('#quit-btn').click(game.quit);
+                
+                jQuery('#stats a:contains("Clear")').click(game.clearStats);
                 
                 game.verticallyCenterPage = function(pageId) {
                     if (typeof pageId === "string" && pageId.length > 0 && jQuery('#' + pageId).length > 0) {
@@ -140,6 +137,7 @@
                         jQuery(content).css('margin-top', marginTop + 'px');
                     }
                 };
+                
                 jQuery(document).ready(function() {
                     game.verticallyCenterPage("main-menu");
                     
@@ -156,6 +154,7 @@
                         }, 50);
                     }
                 });
+                
                 jQuery(document).on('pagecontainerchange', function() {
                     clearInterval(game.verticalPageCenteringInverval);
                 });
