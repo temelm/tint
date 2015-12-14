@@ -1,3 +1,11 @@
+.unselectable {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+/****************************************************************/
+
 #main-menu, #stats, #help, #paused {
     text-align: center;
 }
@@ -66,6 +74,18 @@
 	color: #ffa500;
 	font-style: normal;
 	font-weight: bold;
+}
+
+#paused-status {
+    width: 100%;
+}
+
+#paused-level {
+    text-align:left;
+}
+
+#paused-time {
+    text-align: right;
 }
 
 @media (max-width: 320px) {

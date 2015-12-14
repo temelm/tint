@@ -1,5 +1,6 @@
 var game = {
 	isDebug: true,
+	numGamesPlayedKey: "tintNumGamesPlayed",
 	highestLevelReachedKey: "tintHighestLevelReached"
 };
 
@@ -126,6 +127,38 @@ game.getNextLevel = function() {
 	}
 };
 
+/**
+ * TODO: REVIEW
+ */
+game.getNumGamesPlayed = function() {
+    try {
+        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
+            var r = window.localStorage.getItem(game.numGamesPlayedKey);
+            return (r) ? parseInt(r, 10) : 0;
+        }
+        return 0;
+    } catch (e) {
+        game.log("getNumGamesPlayed: " + e.message, "error");
+    }
+};
+
+/**
+ * TODO: REVIEW
+ */
+game.incrementNumGamesPlayed = function() {
+    try {
+        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function" && typeof window.localStorage.setItem === "function") {
+            if (game.getNumGamesPlayed() === 0) {
+                window.localStorage.setItem(game.numGamesPlayedKey, 1);
+            } else {
+                window.localStorage.setItem(game.numGamesPlayedKey, game.getNumGamesPlayed() + 1);
+            }
+        }
+    } catch (e) {
+        game.log("incrementNumGamesPlayed: " + e.message, "error");
+    }
+};
+
 game.getHighestLevelReached = function() {
     try {
         if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
@@ -148,12 +181,29 @@ game.setHighestLevelReached = function(newHighestLevelReached) {
     }
 };
 
+/**
+ * TODO: REVIEW
+ */
+game.clearStats = function () {
+    try {
+        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.removeItem === "function") {
+            window.localStorage.removeItem(game.numGamesPlayedKey);
+            window.localStorage.removeItem(game.highestLevelReachedKey);
+            jQuery('#games-played').html(game.getNumGamesPlayed());
+            jQuery('#highest-level-reached').html('N/A');
+        }
+    } catch (e) {
+        game.log("clearStats: " + e.message, "error");
+    }
+};
+
 game.countdown = function() {
 	try {
 		game.time -= 1;
 		jQuery('#time').html(game.time);
 		if (game.time === 0) {
 			clearInterval(game.countdownInterval);
+			game.incrementNumGamesPlayed();
 			if (!game.getHighestLevelReached() || game.level > game.getHighestLevelReached()) {
 				game.setHighestLevelReached(game.level);
 			}
@@ -178,6 +228,8 @@ game.start = function() {
 game.pause = function() {
     try {
         clearInterval(game.countdownInterval);
+        jQuery('#paused-level').html('Current level: ' + game.level);
+        jQuery('#paused-time').html('Time left: ' + game.time);
         jQuery.mobile.changePage("#paused");
     } catch (e) {
         game.log("pause: " + e.message, "error");

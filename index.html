@@ -17,7 +17,7 @@
         <script src="js/game.js"></script>
     </head>
     
-    <body>
+    <body class="unselectable">
         <div data-role="page" id="main-menu">
             <div data-role="header" data-position="fixed">
                 <h1>Tint</h1>
@@ -54,8 +54,15 @@
             </div>
             
             <div role="main" class="ui-content">
+                <span>Games played:</span>
+                <span id="games-played"></span>
+                <br>
+                <br>
                 <span>Highest level reached:</span>
                 <span id="highest-level-reached"></span>
+                <br>
+                <br>
+                <a href="#" data-role="button">Clear</a>
             </div>
             
             <div data-role="footer" data-position="fixed">
@@ -87,6 +94,15 @@
                 <input alt="Restart" id="restart-btn" src="img/restart-64.ico" title="Restart" type="image" width="64">
                 <input alt="Quit" id="quit-btn" src="img/quit-64.ico" title="Quit" type="image" width="64">
             </div>
+            
+            <div data-role="footer" data-position="fixed">
+                <table id="paused-status">
+                    <tr>
+                        <td id="paused-level"></td>
+                        <td id="paused-time"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
         
         <script>
@@ -95,12 +111,16 @@
                 
                 jQuery('#main-menu a[href*="play"]').click(game.start);
                 jQuery('#main-menu a[href*="stats"]').click(function() {
+                    jQuery('#games-played').html(game.getNumGamesPlayed());
+                    
                     if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function" && window.localStorage.getItem(game.highestLevelReachedKey)) {
                         jQuery('#highest-level-reached').html(window.localStorage.getItem(game.highestLevelReachedKey));
                     } else {
                         jQuery('#highest-level-reached').html('N/A');
                     }
                 });
+                
+                jQuery('#stats a:contains("Clear")').click(game.clearStats);
                 
                 jQuery('#pause-btn').click(game.pause);
                 
@@ -121,13 +141,13 @@
                     game.vertivallyCenterPage("main-menu");
                 });
                 
-                jQuery(document).on('pagecontainertransition', function(toPage) {
+                /*jQuery(document).on('pagecontainertransition', function(toPage) {
                     var pageId = toPage.currentTarget.URL;
                     if (pageId.match(/\#stats|\#help|\#paused/i)) {
                         pageId = pageId.match(/\#stats|\#help|\#paused/i)[0].replace("#", "");
                         game.vertivallyCenterPage(pageId);
                     }
-                });
+                });*/
             }
         </script>
     </body>
