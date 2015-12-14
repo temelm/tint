@@ -17,7 +17,7 @@
         <script src="js/game.js"></script>
     </head>
     
-    <body class="unselectable">
+    <body>
         <div data-role="page" id="main-menu">
             <div data-role="header" data-position="fixed">
                 <h1>Tint</h1>
@@ -106,6 +106,9 @@
         </div>
         
         <script>
+            /**
+             * TODO: REVIEW
+             */
             if (typeof jQuery === "function" && typeof Please === "object" && typeof game === "object") {
                 jQuery.mobile.defaultPageTransition = "flip";
                 
@@ -113,8 +116,8 @@
                 jQuery('#main-menu a[href*="stats"]').click(function() {
                     jQuery('#games-played').html(game.getNumGamesPlayed());
                     
-                    if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function" && window.localStorage.getItem(game.highestLevelReachedKey)) {
-                        jQuery('#highest-level-reached').html(window.localStorage.getItem(game.highestLevelReachedKey));
+                    if (!!game.getHighestLevelReached()) {
+                        jQuery('#highest-level-reached').html(game.getHighestLevelReached());
                     } else {
                         jQuery('#highest-level-reached').html('N/A');
                     }
@@ -128,7 +131,7 @@
                 jQuery('#restart-btn').click(game.restart);
                 jQuery('#quit-btn').click(game.quit);
                 
-                game.vertivallyCenterPage = function(pageId) {
+                game.verticallyCenterPage = function(pageId) {
                     if (typeof pageId === "string" && pageId.length > 0 && jQuery('#' + pageId).length > 0) {
                         var headerHeight = jQuery('#' + pageId + ' [data-role="header"]').height();
                         var footerHeight = jQuery('#' + pageId + ' [data-role="footer"]').height();
@@ -138,16 +141,24 @@
                     }
                 };
                 jQuery(document).ready(function() {
-                    game.vertivallyCenterPage("main-menu");
+                    game.verticallyCenterPage("main-menu");
+                    
+                    jQuery('body').addClass('unselectable');
                 });
                 
-                /*jQuery(document).on('pagecontainertransition', function(toPage) {
+                jQuery(document).on('pagecontainerbeforeshow', function(toPage) {
                     var pageId = toPage.currentTarget.URL;
                     if (pageId.match(/\#stats|\#help|\#paused/i)) {
                         pageId = pageId.match(/\#stats|\#help|\#paused/i)[0].replace("#", "");
-                        game.vertivallyCenterPage(pageId);
+                        game.tmpPageId = pageId;
+                        game.verticalPageCenteringInverval = setInterval(function() {
+                            game.verticallyCenterPage(game.tmpPageId);
+                        }, 50);
                     }
-                });*/
+                });
+                jQuery(document).on('pagecontainerchange', function() {
+                    clearInterval(game.verticalPageCenteringInverval);
+                });
             }
         </script>
     </body>
