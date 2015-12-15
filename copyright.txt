@@ -1,0 +1,27 @@
++ config.xml                    : OWN
+
++ css
+  - images
+    * ajax-loader.gif           : jQuery Mobile 1.4.5, http://jquerymobile.com/
+  - jquery.mobile-1.4.5.min.css : jQuery Mobile 1.4.5, http://jquerymobile.com/
+  - styles.css                  : OWN
+  
++ icon.png                      : OWN
+
++ img
+  - favicon.ico                 : OWN
+  - pause-64.ico                : https://www.iconfinder.com/icons/68493/button_pause_sticker_icon
+  - play-resume-64.ico          : https://www.iconfinder.com/icons/68494/button_play_sticker_icon
+  - quit-64.ico                 : https://www.iconfinder.com/icons/68489/button_cancel_cross_sticker_icon
+  - restart-64.ico              : https://www.iconfinder.com/icons/68499/button_cw_rotate_sticker_icon
+
++ index.html                    : OWN
+
++ js
+  - Please-compressed.js        : Please JS, Jordan Checkman 2014
+  - game.js                     : OWN
+  - jquery-2.1.4.min.js         : jQuery v2.1.4, https://jquery.com/
+  - jquery.mobile-1.4.5.min.js  : jQuery Mobile 1.4.5, http://jquerymobile.com/
+
++ sound
+  - next-level.mp3              : http://oringz.com/ringtone/you-know/
