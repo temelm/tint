@@ -1,5 +1,6 @@
 var game = {
 	isDebug: true,
+	isMute: false,
 	nextLevelSound: new Audio("sound/next-level.mp3"),
 	numGamesPlayedKey: "tintNumGamesPlayed",
 	highestLevelReachedKey: "tintHighestLevelReached"
@@ -67,7 +68,9 @@ game.getLuminanceFactor = function() {
 };
 
 /**
- * http://www.sitepoint.com/javascript-generate-lighter-darker-color/
+ * Craig Buckler. 2011. How to Calculate Lighter or Darker Hex Colors in JavaScript. [ONLINE] Available at: http://www.sitepoint.com/javascript-generate-lighter-darker-color/. [Accessed 15 December 15].
+ * @param {string} hex
+ * @param {number} lum
  */
 game.changeLuminance = function(hex, lum) {
 	try {
@@ -90,7 +93,7 @@ game.changeLuminance = function(hex, lum) {
 
 game.addTiles = function() {
 	try {
-		jQuery('#tileset table').remove(); // cleanup
+		jQuery('#tileset table').remove(); // Cleanup.
 
 		var r = game.getNumRows();
 		var tileColor = game.getTileColor();
@@ -120,7 +123,9 @@ game.addTiles = function() {
 
 game.getNextLevel = function() {
 	try {
-        game.nextLevelSound.play();
+        if (!game.isMute) {
+            game.nextLevelSound.play();
+        }
 		game.level++;
 		jQuery('#level').html(game.level);
 		game.addTiles();
@@ -272,58 +277,63 @@ game.quit = function() {
 game.boot = function() {
 	try {
 		jQuery.mobile.defaultPageTransition = "flip";
-
+		
+		// Add click events to the 'main-menu' page buttons.
 		jQuery('#main-menu a[href*="play"]').click(game.start);
 		jQuery('#main-menu a[href*="stats"]').click(function() {
 			jQuery('#games-played').html(game.getNumGamesPlayed());
-			if (!!game.getHighestLevelReached()) {
-				jQuery('#highest-level-reached').html(game.getHighestLevelReached());
-			} else {
-				jQuery('#highest-level-reached').html('N/A');
-			}
+			var tmp = (!!game.getHighestLevelReached()) ? game.getHighestLevelReached() : "N/A";
+			jQuery('#highest-level-reached').html(tmp);
 		});
 
+		// Add click events to the 'play' page buttons.
 		jQuery('#pause-btn').click(game.pause);
 		
+		// Add click events to the 'stats' page buttons.
+		jQuery('#stats a:contains("Clear")').click(game.clearStats);
+		
+		// Add click events to the 'paused' page buttons.
 		jQuery('#resume-btn').click(game.resume);
 		jQuery('#restart-btn').click(game.restart);
 		jQuery('#quit-btn').click(game.quit);
 
-		jQuery('#stats a:contains("Clear")').click(game.clearStats);
-
 		game.verticallyCenterPage = function(pageId) {
-			if (typeof pageId === "string" && pageId.length > 0 && jQuery('#' + pageId).length > 0) {
-				var headerHeight = jQuery('#' + pageId + ' [data-role="header"]').height();
-				var footerHeight = jQuery('#' + pageId + ' [data-role="footer"]').height();
-				var content = jQuery('#' + pageId + ' .ui-content');
-				var marginTop = (jQuery(window).height() - headerHeight - footerHeight - jQuery(content).outerHeight()) / 2;
-				jQuery(content).css('margin-top', marginTop + 'px');
-			}
-		};
+            try {
+                if (typeof pageId === "string" && pageId.length > 0 && jQuery('#' + pageId).length > 0) {
+                    var headerHeight = jQuery('#' + pageId + ' [data-role="header"]').height();
+                    var footerHeight = jQuery('#' + pageId + ' [data-role="footer"]').height();
+                    var content = jQuery('#' + pageId + ' .ui-content');
+                    var marginTop = (jQuery(window).height() - headerHeight - footerHeight - jQuery(content).outerHeight()) / 2;
+                    jQuery(content).css('margin-top', marginTop + 'px');
+                }
+            } catch (e) {
+                game.log("verticallyCenterPage: " + e.message, "error");
+            }
+        };
 
 		jQuery(document).ready(function() {
+            game.verticallyCenterPage("main-menu");
+            
+            // Make text unselectable.
             jQuery('body').addClass('unselectable');
-			game.verticallyCenterPage("main-menu");
 		});
-
-		game.clearVerticalPageCenteringInverval = function() {
-			clearInterval(game.verticalPageCenteringInverval);
-		};
-
+		
 		jQuery(document).on('pagecontainerbeforeshow', function(toPage) {
-			var pageId = toPage.currentTarget.URL;
+            var pageId = toPage.currentTarget.URL;
 			if (pageId.match(/\#stats|\#help|\#paused/i)) {
 				pageId = pageId.match(/\#stats|\#help|\#paused/i)[0].replace("#", "");
+				jQuery('#' + pageId + " .ui-content").css('visibility', 'hidden');
 				game.tmpPageId = pageId;
-				game.verticalPageCenteringInverval = setInterval(function() {
-					game.verticallyCenterPage(game.tmpPageId);
-				}, 25);
-				setTimeout(game.clearVerticalPageCenteringInverval, 500);
+                setTimeout(function() {
+                    jQuery('#' + game.tmpPageId + " .ui-content").css('visibility', 'visible');
+				}, 1000);
 			}
+            
 		});
-
-		jQuery(document).on('pagecontainerchange', function() {
-			game.clearVerticalPageCenteringInverval();
+		
+		jQuery(document).on('pagecontainershow', function() {
+            game.verticallyCenterPage(game.tmpPageId);
+            jQuery('#' + game.tmpPageId + " .ui-content").css('visibility', 'visible');
 		});
 	} catch (e) {
 		game.log("boot: " + e.message, "error");
