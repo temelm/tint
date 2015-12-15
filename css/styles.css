@@ -13,6 +13,12 @@
     text-transform: uppercase;
 }
 
+#main-menu .muted-unmuted {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 #main-menu .ui-content img {
     margin-bottom: 1em;
 }

@@ -1,6 +1,7 @@
 var game = {
 	isDebug: true,
 	isMute: false,
+	isMuteKey: "tintIsMute",
 	nextLevelSound: new Audio("sound/next-level.mp3"),
 	numGamesPlayedKey: "tintNumGamesPlayed",
 	highestLevelReachedKey: "tintHighestLevelReached"
@@ -274,9 +275,45 @@ game.quit = function() {
     }
 };
 
+game.mute = function() {
+    try {
+        game.isMute = true;
+        jQuery('#mute-btn').hide();
+        jQuery('#unmute-btn').show();
+        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
+            window.localStorage.setItem(game.isMuteKey, "true");
+        }
+    } catch (e) {
+        game.log("mute: " + e.message, "error");
+    }
+};
+
+game.unmute = function() {
+    try {
+        game.isMute = false;
+        jQuery('#unmute-btn').hide();
+        jQuery('#mute-btn').show();
+        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
+            window.localStorage.setItem(game.isMuteKey, "false");
+        }
+    } catch (e) {
+        game.log("unmute: " + e.message, "error");
+    }
+};
+
 game.boot = function() {
 	try {
 		jQuery.mobile.defaultPageTransition = "flip";
+		
+		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
+            var r = window.localStorage.getItem(game.isMuteKey);
+            game.isMute = (r && r === "true") ? true : false;
+		} else {
+            game.isMute = false;
+		}
+		(game.isMute) ? game.mute() : game.unmute();
+		jQuery('#mute-btn').click(game.mute);
+		jQuery('#unmute-btn').click(game.unmute);
 		
 		// Add click events to the 'main-menu' page buttons.
 		jQuery('#main-menu a[href*="play"]').click(game.start);
