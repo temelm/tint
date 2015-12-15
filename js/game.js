@@ -1,5 +1,6 @@
 var game = {
 	isDebug: true,
+	nextLevelSound: new Audio("sound/next-level.mp3"),
 	numGamesPlayedKey: "tintNumGamesPlayed",
 	highestLevelReachedKey: "tintHighestLevelReached"
 };
@@ -119,6 +120,7 @@ game.addTiles = function() {
 
 game.getNextLevel = function() {
 	try {
+        game.nextLevelSound.play();
 		game.level++;
 		jQuery('#level').html(game.level);
 		game.addTiles();
@@ -265,6 +267,67 @@ game.quit = function() {
     } catch (e) {
         game.log("quit: " + e.message, "error");
     }
+};
+
+game.boot = function() {
+	try {
+		jQuery.mobile.defaultPageTransition = "flip";
+
+		jQuery('#main-menu a[href*="play"]').click(game.start);
+		jQuery('#main-menu a[href*="stats"]').click(function() {
+			jQuery('#games-played').html(game.getNumGamesPlayed());
+			if (!!game.getHighestLevelReached()) {
+				jQuery('#highest-level-reached').html(game.getHighestLevelReached());
+			} else {
+				jQuery('#highest-level-reached').html('N/A');
+			}
+		});
+
+		jQuery('#pause-btn').click(game.pause);
+		
+		jQuery('#resume-btn').click(game.resume);
+		jQuery('#restart-btn').click(game.restart);
+		jQuery('#quit-btn').click(game.quit);
+
+		jQuery('#stats a:contains("Clear")').click(game.clearStats);
+
+		game.verticallyCenterPage = function(pageId) {
+			if (typeof pageId === "string" && pageId.length > 0 && jQuery('#' + pageId).length > 0) {
+				var headerHeight = jQuery('#' + pageId + ' [data-role="header"]').height();
+				var footerHeight = jQuery('#' + pageId + ' [data-role="footer"]').height();
+				var content = jQuery('#' + pageId + ' .ui-content');
+				var marginTop = (jQuery(window).height() - headerHeight - footerHeight - jQuery(content).outerHeight()) / 2;
+				jQuery(content).css('margin-top', marginTop + 'px');
+			}
+		};
+
+		jQuery(document).ready(function() {
+            jQuery('body').addClass('unselectable');
+			game.verticallyCenterPage("main-menu");
+		});
+
+		game.clearVerticalPageCenteringInverval = function() {
+			clearInterval(game.verticalPageCenteringInverval);
+		};
+
+		jQuery(document).on('pagecontainerbeforeshow', function(toPage) {
+			var pageId = toPage.currentTarget.URL;
+			if (pageId.match(/\#stats|\#help|\#paused/i)) {
+				pageId = pageId.match(/\#stats|\#help|\#paused/i)[0].replace("#", "");
+				game.tmpPageId = pageId;
+				game.verticalPageCenteringInverval = setInterval(function() {
+					game.verticallyCenterPage(game.tmpPageId);
+				}, 25);
+				setTimeout(game.clearVerticalPageCenteringInverval, 500);
+			}
+		});
+
+		jQuery(document).on('pagecontainerchange', function() {
+			game.clearVerticalPageCenteringInverval();
+		});
+	} catch (e) {
+		game.log("boot: " + e.message, "error");
+	}
 };
 
 ////////////////////////////////////////////////////////////////
