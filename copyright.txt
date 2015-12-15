@@ -10,12 +10,12 @@
 
 + img
   - favicon.ico                 : OWN
-  - mute.ico                    : https://www.iconfinder.com/icons/68621/mute_speaker_sticker_icon
+  - muted-64.ico                : https://www.iconfinder.com/icons/68621/mute_speaker_sticker_icon
   - pause-64.ico                : https://www.iconfinder.com/icons/68493/button_pause_sticker_icon
   - play-resume-64.ico          : https://www.iconfinder.com/icons/68494/button_play_sticker_icon
   - quit-64.ico                 : https://www.iconfinder.com/icons/68489/button_cancel_cross_sticker_icon
   - restart-64.ico              : https://www.iconfinder.com/icons/68499/button_cw_rotate_sticker_icon
-  - unmute.ico                  : https://www.iconfinder.com/icons/68620/speaker_sticker_icon
+  - unmuted-64.ico              : https://www.iconfinder.com/icons/68620/speaker_sticker_icon
 
 + index.html                    : OWN
 
