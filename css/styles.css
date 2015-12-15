@@ -13,6 +13,10 @@
     text-transform: uppercase;
 }
 
+#main-menu .ui-content img {
+    margin-bottom: 1em;
+}
+
 #status {
     width: 100%;
 }
