@@ -8,6 +8,16 @@
     text-align: center;
 }
 
+.ui-btn {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.ui-footer .ui-btn {
+    width: 20%;
+}
+
 #main-menu h1 {
     color: #38c;
     text-transform: uppercase;
