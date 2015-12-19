@@ -1,40 +1,40 @@
+body {
+	text-transform: lowercase;
+}
+
 .unselectable {
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
 }
 
 #main-menu, #stats, #help, #paused {
-    text-align: center;
+	text-align: center;
 }
 
-.ui-btn {
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-}
-
-.ui-footer .ui-btn {
-    width: 20%;
+.ui-content .ui-btn {
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
 }
 
 #main-menu h1 {
-    color: #38c;
-    text-transform: uppercase;
+	color: #38c;
 }
 
 #main-menu .muted-unmuted {
-    position: absolute;
-    right: 0;
-    top: 0;
+	position: absolute;
+	right: 5px;
+	top: 0;
 }
 
 #main-menu .ui-content img {
-    margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 #status {
-    width: 100%;
+    position: relative;
+	width: 100%;
 }
 
 #status td {
@@ -53,6 +53,12 @@
 
 #ctrl {
 	text-align: right;
+}
+
+#pause-btn {
+    position: absolute;
+    right: 2px;
+    top: 2px;
 }
 
 .center {
@@ -95,15 +101,15 @@
 }
 
 #paused-status {
-    width: 100%;
+	width: 100%;
 }
 
 #paused-level {
-    text-align:left;
+	text-align:left;
 }
 
 #paused-time {
-    text-align: right;
+	text-align: right;
 }
 
 @media (max-width: 320px) {
