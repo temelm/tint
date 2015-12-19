@@ -124,9 +124,9 @@ game.addTiles = function() {
 
 game.getNextLevel = function() {
 	try {
-        if (!game.isMute) {
-            game.nextLevelSound.play();
-        }
+		if (!game.isMute) {
+			game.nextLevelSound.play();
+		}
 		game.level++;
 		jQuery('#level').html(game.level);
 		game.addTiles();
@@ -136,74 +136,74 @@ game.getNextLevel = function() {
 };
 
 game.getNumGamesPlayed = function() {
-    try {
-        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
-            var r = window.localStorage.getItem(game.numGamesPlayedKey);
-            return (r) ? parseInt(r, 10) : 0;
-        } else {
-            game.log("getNumGamesPlayed: window.localStorage not supported!");
-            return 0;
-        }
-    } catch (e) {
-        game.log("getNumGamesPlayed: " + e.message, "error");
-    }
+	try {
+		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
+			var r = window.localStorage.getItem(game.numGamesPlayedKey);
+			return (r) ? parseInt(r, 10) : 0;
+		} else {
+			game.log("getNumGamesPlayed: window.localStorage not supported!");
+			return 0;
+		}
+	} catch (e) {
+		game.log("getNumGamesPlayed: " + e.message, "error");
+	}
 };
 
 game.incrementNumGamesPlayed = function() {
-    try {
-        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function" && typeof window.localStorage.setItem === "function") {
-            if (game.getNumGamesPlayed() === 0) {
-                window.localStorage.setItem(game.numGamesPlayedKey, 1);
-            } else {
-                window.localStorage.setItem(game.numGamesPlayedKey, game.getNumGamesPlayed() + 1);
-            }
-        } else {
-            game.log("incrementNumGamesPlayed: window.localStorage not supported!");
-        }
-    } catch (e) {
-        game.log("incrementNumGamesPlayed: " + e.message, "error");
-    }
+	try {
+		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function" && typeof window.localStorage.setItem === "function") {
+			if (game.getNumGamesPlayed() === 0) {
+				window.localStorage.setItem(game.numGamesPlayedKey, 1);
+			} else {
+				window.localStorage.setItem(game.numGamesPlayedKey, game.getNumGamesPlayed() + 1);
+			}
+		} else {
+			game.log("incrementNumGamesPlayed: window.localStorage not supported!");
+		}
+	} catch (e) {
+		game.log("incrementNumGamesPlayed: " + e.message, "error");
+	}
 };
 
 game.getHighestLevelReached = function() {
-    try {
-        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
-            var r = window.localStorage.getItem(game.highestLevelReachedKey);
-            return (r) ? parseInt(r, 10) : null;
-        } else {
-            game.log("getHighestLevelReached: window.localStorage not supported!");
-            return null;
-        }
-    } catch (e) {
-        game.log("getHighestLevelReached: " + e.message, "error");
-    }
+	try {
+		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
+			var r = window.localStorage.getItem(game.highestLevelReachedKey);
+			return (r) ? parseInt(r, 10) : null;
+		} else {
+			game.log("getHighestLevelReached: window.localStorage not supported!");
+			return null;
+		}
+	} catch (e) {
+		game.log("getHighestLevelReached: " + e.message, "error");
+	}
 };
 
 game.setHighestLevelReached = function(newHighestLevelReached) {
-    try {
-        if (typeof newHighestLevelReached !== "undefined" && typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
-            window.localStorage.setItem(game.highestLevelReachedKey, newHighestLevelReached);
-        } else {
-            // TODO: ADD LOGGING
-        }
-    } catch (e) {
-        game.log("setHighestLevelReached: " + e.message, "error");
-    }
+	try {
+		if (typeof newHighestLevelReached !== "undefined" && typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
+			window.localStorage.setItem(game.highestLevelReachedKey, newHighestLevelReached);
+		} else {
+			// TODO: ADD LOGGING
+		}
+	} catch (e) {
+		game.log("setHighestLevelReached: " + e.message, "error");
+	}
 };
 
 game.clearStats = function () {
-    try {
-        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.removeItem === "function") {
-            window.localStorage.removeItem(game.numGamesPlayedKey);
-            window.localStorage.removeItem(game.highestLevelReachedKey);
-            jQuery('#games-played').html('0');
-            jQuery('#highest-level-reached').html('N/A');
-        } else {
-            game.log("clearStats: window.localStorage not supported!");
-        }
-    } catch (e) {
-        game.log("clearStats: " + e.message, "error");
-    }
+	try {
+		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.removeItem === "function") {
+			window.localStorage.removeItem(game.numGamesPlayedKey);
+			window.localStorage.removeItem(game.highestLevelReachedKey);
+			jQuery('#games-played').html('0');
+			jQuery('#highest-level-reached').html('N/A');
+		} else {
+			game.log("clearStats: window.localStorage not supported!");
+		}
+	} catch (e) {
+		game.log("clearStats: " + e.message, "error");
+	}
 };
 
 game.countdown = function() {
@@ -225,91 +225,92 @@ game.countdown = function() {
 };
 
 game.start = function() {
-    try {
-        game.init();
-        game.addTiles();
-        game.countdownInterval = setInterval(game.countdown, 1000);
-    } catch (e) {
-        game.log("start: " + e.message, "error");
-    }
+	try {
+		game.init();
+		game.addTiles();
+		game.countdownInterval = setInterval(game.countdown, 1000);
+	} catch (e) {
+		game.log("start: " + e.message, "error");
+	}
 };
 
 game.pause = function() {
-    try {
-        clearInterval(game.countdownInterval);
-        jQuery('#paused-level').html('Current level: ' + game.level);
-        jQuery('#paused-time').html('Time left: ' + game.time);
-        jQuery.mobile.changePage("#paused");
-    } catch (e) {
-        game.log("pause: " + e.message, "error");
-    }
+	try {
+		clearInterval(game.countdownInterval);
+		jQuery('#paused-level').html('current level: ' + game.level);
+		jQuery('#paused-time').html('time left: ' + game.time);
+		jQuery.mobile.changePage("#paused");
+	} catch (e) {
+		game.log("pause: " + e.message, "error");
+	}
 };
 
 game.resume = function() {
-    try {
-        jQuery.mobile.changePage("#play");
-        game.countdownInterval = setInterval(game.countdown, 1000);
-    } catch (e) {
-        game.log("resume: " + e.message, "error");
-    }
+	try {
+		jQuery.mobile.changePage("#play");
+		game.countdownInterval = setInterval(game.countdown, 1000);
+	} catch (e) {
+		game.log("resume: " + e.message, "error");
+	}
 };
 
 game.restart = function() {
-    try {
-        clearInterval(game.countdownInterval);
-        game.init();
-        game.addTiles();
-        jQuery.mobile.changePage("#play");
-        game.countdownInterval = setInterval(game.countdown, 1000);
-    } catch (e) {
-        game.log("restart: " + e.message, "error");
-    }
+	try {
+		clearInterval(game.countdownInterval);
+		game.init();
+		game.addTiles();
+		jQuery.mobile.changePage("#play");
+		game.countdownInterval = setInterval(game.countdown, 1000);
+	} catch (e) {
+		game.log("restart: " + e.message, "error");
+	}
 };
 
 game.quit = function() {
-    try {
-        clearInterval(game.countdownInterval);
-        jQuery.mobile.changePage("#main-menu");
-    } catch (e) {
-        game.log("quit: " + e.message, "error");
-    }
+	try {
+		clearInterval(game.countdownInterval);
+		jQuery.mobile.changePage("#main-menu");
+	} catch (e) {
+		game.log("quit: " + e.message, "error");
+	}
 };
 
 game.mute = function() {
-    try {
-        game.isMute = true;
-        jQuery('#mute-btn').hide();
-        jQuery('#unmute-btn').show();
-        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
-            window.localStorage.setItem(game.isMuteKey, "true");
-        }
-    } catch (e) {
-        game.log("mute: " + e.message, "error");
-    }
+	try {
+		game.isMute = true;
+		jQuery('#mute-btn').hide();
+		jQuery('#unmute-btn').show();
+		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
+			window.localStorage.setItem(game.isMuteKey, "true");
+		}
+	} catch (e) {
+		game.log("mute: " + e.message, "error");
+	}
 };
 
 game.unmute = function() {
-    try {
-        game.isMute = false;
-        jQuery('#unmute-btn').hide();
-        jQuery('#mute-btn').show();
-        if (typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
-            window.localStorage.setItem(game.isMuteKey, "false");
-        }
-    } catch (e) {
-        game.log("unmute: " + e.message, "error");
-    }
+	try {
+		game.isMute = false;
+		jQuery('#unmute-btn').hide();
+		jQuery('#mute-btn').show();
+		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
+			window.localStorage.setItem(game.isMuteKey, "false");
+		}
+	} catch (e) {
+		game.log("unmute: " + e.message, "error");
+	}
 };
 
 game.boot = function() {
 	try {
 		jQuery.mobile.defaultPageTransition = "flip";
 		
+		// Add click events to the 'mute-btn'/'unmute-btn' buttons.
 		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
-            var r = window.localStorage.getItem(game.isMuteKey);
-            game.isMute = (r && r === "true") ? true : false;
+			var r = window.localStorage.getItem(game.isMuteKey);
+			game.isMute = (r && r === "true") ? true : false;
 		} else {
-            game.isMute = false;
+			game.isMute = false;
 		}
 		(game.isMute) ? game.mute() : game.unmute();
 		jQuery('#mute-btn').click(game.mute);
@@ -327,7 +328,7 @@ game.boot = function() {
 		jQuery('#pause-btn').click(game.pause);
 		
 		// Add click events to the 'stats' page buttons.
-		jQuery('#stats a:contains("Clear")').click(game.clearStats);
+		jQuery('#stats a:contains("clear")').click(game.clearStats);
 		
 		// Add click events to the 'paused' page buttons.
 		jQuery('#resume-btn').click(game.resume);
@@ -335,42 +336,44 @@ game.boot = function() {
 		jQuery('#quit-btn').click(game.quit);
 
 		game.verticallyCenterPage = function(pageId) {
-            try {
-                if (typeof pageId === "string" && pageId.length > 0 && jQuery('#' + pageId).length > 0) {
-                    var headerHeight = jQuery('#' + pageId + ' [data-role="header"]').height();
-                    var footerHeight = jQuery('#' + pageId + ' [data-role="footer"]').height();
-                    var content = jQuery('#' + pageId + ' .ui-content');
-                    var marginTop = (jQuery(window).height() - headerHeight - footerHeight - jQuery(content).outerHeight()) / 2;
-                    jQuery(content).css('margin-top', marginTop + 'px');
-                }
-            } catch (e) {
-                game.log("verticallyCenterPage: " + e.message, "error");
-            }
-        };
+			try {
+				if (typeof pageId === "string" && pageId.length > 0 && jQuery('#' + pageId).length > 0) {
+					var headerHeight = jQuery('#' + pageId + ' [data-role="header"]').height();
+					var footerHeight = jQuery('#' + pageId + ' [data-role="footer"]').height();
+					var content = jQuery('#' + pageId + ' .ui-content');
+					var marginTop = (jQuery(window).height() - headerHeight - footerHeight - jQuery(content).outerHeight()) / 2;
+					jQuery(content).css('margin-top', marginTop + 'px');
+				}
+			} catch (e) {
+				game.log("verticallyCenterPage: " + e.message, "error");
+			}
+		};
 
 		jQuery(document).ready(function() {
-            game.verticallyCenterPage("main-menu");
-            
-            // Make text unselectable.
-            jQuery('body').addClass('unselectable');
+			jQuery('.muted-unmuted').css('top', (((jQuery('#main-menu .ui-header').height() - jQuery('#mute-btn').height()) / 2) + 'px'));
+			
+			game.verticallyCenterPage("main-menu");
+			
+			// Make text unselectable.
+			jQuery('body').addClass('unselectable');
 		});
 		
 		jQuery(document).on('pagecontainerbeforeshow', function(toPage) {
-            var pageId = toPage.currentTarget.URL;
+			var pageId = toPage.currentTarget.URL;
 			if (pageId.match(/\#stats|\#help|\#paused/i)) {
 				pageId = pageId.match(/\#stats|\#help|\#paused/i)[0].replace("#", "");
 				jQuery('#' + pageId + " .ui-content").css('visibility', 'hidden');
 				game.tmpPageId = pageId;
-                setTimeout(function() {
-                    jQuery('#' + game.tmpPageId + " .ui-content").css('visibility', 'visible');
+				setTimeout(function() {
+					jQuery('#' + game.tmpPageId + " .ui-content").css('visibility', 'visible');
 				}, 1000);
 			}
-            
+			
 		});
 		
 		jQuery(document).on('pagecontainershow', function() {
-            game.verticallyCenterPage(game.tmpPageId);
-            jQuery('#' + game.tmpPageId + " .ui-content").css('visibility', 'visible');
+			game.verticallyCenterPage(game.tmpPageId);
+			jQuery('#' + game.tmpPageId + " .ui-content").css('visibility', 'visible');
 		});
 	} catch (e) {
 		game.log("boot: " + e.message, "error");
