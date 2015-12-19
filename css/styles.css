@@ -33,7 +33,7 @@ body {
 }
 
 #status {
-    position: relative;
+	position: relative;
 	width: 100%;
 }
 
@@ -56,9 +56,9 @@ body {
 }
 
 #pause-btn {
-    position: absolute;
-    right: 2px;
-    top: 2px;
+	position: absolute;
+	right: 2px;
+	top: 2px;
 }
 
 .center {

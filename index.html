@@ -1,116 +1,118 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <title>Tint</title>
-        
-        <link href="img/favicon.ico" rel="icon">
-        <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet">
-        <link href="css/styles.css" rel="stylesheet">
-        
-        <script src="js/jquery-2.1.4.min.js"></script>
-        <script src="js/jquery.mobile-1.4.5.min.js"></script>
-        <script src="js/Please-compressed.js"></script>
-        <script src="js/game.js"></script>
-    </head>
-    
-    <body>
-        <div data-role="page" id="main-menu">
-            <div data-role="header" data-position="fixed">
-                <h1>Tint</h1>
-                <input alt="Unmuted" class="muted-unmuted" id="mute-btn" src="img/unmuted-64.ico" title="Mute" type="image" width="32">
-                <input alt="Muted" class="muted-unmuted" id="unmute-btn" src="img/muted-64.ico" title="Unmute" type="image" width="32">
-            </div>
-        
-            <div role="main" class="ui-content">
-                <img src="img/favicon.ico" alt="Logo">
-                <a href="#play" data-role="button">Play</a>
-                <a href="#stats" data-role="button">Stats</a>
-                <a href="#help" data-role="button">Help</a>
-            </div>
-            
-            <div data-role="footer" data-position="fixed">&#169; 2015 Mustafa Temel</div>
-        </div>
-        
-        <div data-role="page" id="play">
-            <div role="main" class="ui-content">
-                <table id="status">
-                    <tr>
-                        <td id="level"></td>
-                        <td id="time"></td>
-                        <td id="ctrl">
-                            <input alt="Pause" id="pause-btn" src="img/pause-64.ico" title="Pause" type="image" width="48">
-                        </td>
-                    </tr>
-                </table>
-                <div class="center" id="tileset"></div>
-            </div>
-        </div>
-        
-        <div data-role="page" id="stats">
-            <div data-role="header" data-position="fixed">
-                <h1>Stats</h1>
-            </div>
-            
-            <div role="main" class="ui-content">
-                <span>Games played:</span>
-                <span id="games-played"></span>
-                <br>
-                <br>
-                <span>Highest level reached:</span>
-                <span id="highest-level-reached"></span>
-                <br>
-                <br>
-                <a href="#" data-role="button">Clear</a>
-            </div>
-            
-            <div data-role="footer" data-position="fixed">
-                <a href="#main-menu" data-role="button" data-icon="carat-l">Back</a>
-            </div>
-        </div>
-        
-         <div data-role="page" id="help">
-            <div data-role="header" data-position="fixed">
-                <h1>Help</h1>
-            </div>
-            
-            <div role="main" class="ui-content">
-                <!-- TODO -->
-            </div>
-            
-            <div data-role="footer" data-position="fixed">
-                <a href="#main-menu" data-role="button" data-icon="carat-l">Back</a>
-            </div>
-        </div>
-        
-        <div data-role="page" id="paused">
-            <div data-role="header">
-                <h1>Paused</h1>
-            </div>
-            
-            <div role="main" class="ui-content">
-                <input alt="Resume" id="resume-btn" src="img/play-resume-64.ico" title="Resume" type="image" width="64">
-                <input alt="Restart" id="restart-btn" src="img/restart-64.ico" title="Restart" type="image" width="64">
-                <input alt="Quit" id="quit-btn" src="img/quit-64.ico" title="Quit" type="image" width="64">
-            </div>
-            
-            <div data-role="footer" data-position="fixed">
-                <table id="paused-status">
-                    <tr>
-                        <td id="paused-level"></td>
-                        <td id="paused-time"></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        
-        <script>
-            if (typeof jQuery === "function" && typeof Please === "object" && typeof game === "object") {
-                game.boot();
-            }
-        </script>
-    </body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>tint</title>
+		
+		<link href="img/favicon.ico" rel="icon">
+		<link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet">
+		<link href="css/styles.css" rel="stylesheet">
+		
+		<script src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script src="js/Please-compressed.js"></script>
+		<script src="js/game.js"></script>
+	</head>
+	
+	<body>
+		<div data-role="page" id="main-menu">
+			<div data-role="header" data-position="fixed">
+				<h1>tint</h1>
+				<input alt="unmuted" class="muted-unmuted" id="mute-btn" src="img/unmuted-64.ico" title="mute" type="image" width="32">
+				<input alt="muted" class="muted-unmuted" id="unmute-btn" src="img/muted-64.ico" title="unmute" type="image" width="32">
+			</div>
+		
+			<div role="main" class="ui-content">
+				<img src="img/favicon.ico" alt="logo">
+				<a href="#play" data-role="button">play</a>
+				<a href="#stats" data-role="button">stats</a>
+				<a href="#help" data-role="button">help</a>
+			</div>
+			
+			<div data-role="footer" data-position="fixed">
+				<span>&#169; 2015 mustafa temel</span>
+			</div>
+		</div>
+		
+		<div data-role="page" id="play">
+			<div role="main" class="ui-content">
+				<table id="status">
+					<tr>
+						<td id="level"></td>
+						<td id="time"></td>
+						<td id="ctrl">
+							<input alt="pause" id="pause-btn" src="img/pause-64.ico" title="pause" type="image" width="40">
+						</td>
+					</tr>
+				</table>
+				<div class="center" id="tileset"></div>
+			</div>
+		</div>
+		
+		<div data-role="page" id="stats">
+			<div data-role="header" data-position="fixed">
+				<h1>stats</h1>
+			</div>
+			
+			<div role="main" class="ui-content">
+				<span>games played:</span>
+				<span id="games-played"></span>
+				<br>
+				<br>
+				<span>highest level reached:</span>
+				<span id="highest-level-reached"></span>
+				<br>
+				<br>
+				<a href="#" data-role="button">clear</a>
+			</div>
+			
+			<div data-role="footer" data-position="fixed">
+				<a href="#main-menu" data-role="button" data-icon="back">back</a>
+			</div>
+		</div>
+		
+		 <div data-role="page" id="help">
+			<div data-role="header" data-position="fixed">
+				<h1>help</h1>
+			</div>
+			
+			<div role="main" class="ui-content">
+				<!-- TODO -->
+			</div>
+			
+			<div data-role="footer" data-position="fixed">
+				<a href="#main-menu" data-role="button" data-icon="back">back</a>
+			</div>
+		</div>
+		
+		<div data-role="page" id="paused">
+			<div data-role="header">
+				<h1>paused</h1>
+			</div>
+			
+			<div role="main" class="ui-content">
+				<a href="#" id="resume-btn" data-role="button">resume</a>
+				<a href="#" id="restart-btn" data-role="button">restart</a>
+				<a href="#" id="quit-btn" data-role="button">quit</a>
+			</div>
+			
+			<div data-role="footer" data-position="fixed">
+				<table id="paused-status">
+					<tr>
+						<td id="paused-level"></td>
+						<td id="paused-time"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<script>
+			if (typeof jQuery === "function" && typeof Please === "object" && typeof game === "object") {
+				game.boot();
+			}
+		</script>
+	</body>
 </html>
