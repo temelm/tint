@@ -20,8 +20,8 @@ game.init = function() {
 		jQuery('#level').html(game.level);
 		game.time = 60;
 		jQuery('#time').html(game.time);
-        
-        game.duration = 0;
+		
+		game.duration = 0;
 	} catch (e) {
 		game.log("init: " + e.message, "error");
 	}
@@ -154,7 +154,7 @@ game.getNumGamesPlayed = function() {
 game.incrementNumGamesPlayed = function() {
 	try {
 		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function" && typeof window.localStorage.setItem === "function") {
-            window.localStorage.setItem(game.numGamesPlayedKey, game.getNumGamesPlayed() + 1);
+			window.localStorage.setItem(game.numGamesPlayedKey, game.getNumGamesPlayed() + 1);
 		} else {
 			game.log("incrementNumGamesPlayed: window.localStorage not supported!");
 		}
@@ -206,8 +206,8 @@ game.clearStats = function () {
 
 game.countdown = function() {
 	try {
-        game.duration++;
-        
+		game.duration++;
+		
 		game.time -= 1;
 		jQuery('#time').html(game.time);
 		if (game.time === 0) {
@@ -216,8 +216,11 @@ game.countdown = function() {
 			if (!game.getHighestLevelReached() || game.level > game.getHighestLevelReached()) {
 				game.setHighestLevelReached(game.level);
 			}
-			var r = confirm("GAME OVER!\n\nLEVEL REACHED: " + game.level + "\n\nREPLAY?");
-			(r) ? game.restart() : jQuery.mobile.changePage("#main-menu");
+			if (confirm("GAME OVER!\n\nLEVEL REACHED: " + game.level + "\n\nREPLAY?")) {
+				game.restart();
+			} else {
+				jQuery.mobile.changePage("#main-menu");
+			}
 		}
 	} catch (e) {
 		game.log("countdown: " + e.message, "error");
@@ -312,7 +315,11 @@ game.boot = function() {
 		} else {
 			game.isMute = false;
 		}
-		(game.isMute) ? game.mute() : game.unmute();
+		if (game.isMute) {
+			game.mute();
+		} else {
+			game.unmute();
+		}
 		jQuery('#mute-btn').click(game.mute);
 		jQuery('#unmute-btn').click(game.unmute);
 		
@@ -329,9 +336,9 @@ game.boot = function() {
 		
 		// Add click events to the 'stats' page buttons.
 		jQuery('#stats a:contains("clear")').click(function() {
-            if (confirm("ARE YOU SURE?")) {
-                game.clearStats();
-            }
+			if (confirm("ARE YOU SURE?")) {
+				game.clearStats();
+			}
 		});
 		
 		// Add click events to the 'paused' page buttons.
