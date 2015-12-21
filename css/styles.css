@@ -100,22 +100,13 @@ body {
 	font-weight: bold;
 }
 
-#help table {
-    height: 100%;
-    width: 100%;
+#help img {
+	max-width: 100%;
 }
 
-#help table tr {
-    height: 50%;
-}
-
-#help table td {
-    width: 50%;
-}
-
-#help table td img {
-    max-height: 100%;
-    max-width: 100%;
+#help p {
+	font-weight: bold;
+	margin: 0;
 }
 
 #paused-status {
