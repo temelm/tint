@@ -216,7 +216,7 @@ game.countdown = function() {
 			if (!game.getHighestLevelReached() || game.level > game.getHighestLevelReached()) {
 				game.setHighestLevelReached(game.level);
 			}
-			if (confirm("GAME OVER!\n\nLEVEL REACHED: " + game.level + "\n\nREPLAY?")) {
+			if (confirm("game over!\n\nlevel reached: " + game.level + "\n\nreplay?")) {
 				game.restart();
 			} else {
 				jQuery.mobile.changePage("#main-menu");
@@ -281,6 +281,7 @@ game.quit = function() {
 game.mute = function() {
 	try {
 		game.isMute = true;
+		game.nextLevelSound.muted = true;
 		jQuery('#mute-btn').hide();
 		jQuery('#unmute-btn').show();
 		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
@@ -294,6 +295,7 @@ game.mute = function() {
 game.unmute = function() {
 	try {
 		game.isMute = false;
+		game.nextLevelSound.muted = false;
 		jQuery('#unmute-btn').hide();
 		jQuery('#mute-btn').show();
 		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.setItem === "function") {
@@ -307,6 +309,11 @@ game.unmute = function() {
 game.boot = function() {
 	try {
 		jQuery.mobile.defaultPageTransition = "flip";
+		
+		var tmpIsMuted = game.nextLevelSound.muted;
+		game.nextLevelSound.muted = true;
+		game.nextLevelSound.play();
+		game.nextLevelSound.muted = tmpIsMuted;
 		
 		// Add click events to the 'mute-btn'/'unmute-btn' buttons.
 		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
@@ -336,7 +343,7 @@ game.boot = function() {
 		
 		// Add click events to the 'stats' page buttons.
 		jQuery('#stats a:contains("clear")').click(function() {
-			if (confirm("ARE YOU SURE?")) {
+			if (confirm("are you sure?")) {
 				game.clearStats();
 			}
 		});

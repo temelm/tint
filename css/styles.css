@@ -18,7 +18,7 @@ body {
 	width: 50%;
 }
 
-#main-menu h1 {
+#main-menu .ui-header {
 	color: #38c;
 }
 
@@ -85,28 +85,29 @@ body {
 	cursor: pointer;
 }
 
-#stats .ui-content {
+#stats table {
+	border: 2px solid #38c;
+	border-radius: 0.3125em;
+	border-spacing: 1em;
 	font-size: large;
-	margin-bottom: 20px;
-}
-
-#stats .ui-content span {
-	font-style: italic;
+	margin-bottom: 1.5em;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	width: 96%;
 }
 
 #highest-level-reached {
-	color: #ffa500;
-	font-style: normal;
-	font-weight: bold;
-}
-
-#help img {
-	max-width: 100%;
+	color: #ffa500;;
 }
 
 #help p {
 	font-weight: bold;
-	margin: 0;
+	margin: 0 0 1em 0;
+}
+
+#help img {
+	max-width: 100%;
 }
 
 #paused-status {
