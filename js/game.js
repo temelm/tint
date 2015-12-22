@@ -310,11 +310,6 @@ game.boot = function() {
 	try {
 		jQuery.mobile.defaultPageTransition = "flip";
 		
-		var tmpIsMuted = game.nextLevelSound.muted;
-		game.nextLevelSound.muted = true;
-		game.nextLevelSound.play();
-		game.nextLevelSound.muted = tmpIsMuted;
-		
 		// Add click events to the 'mute-btn'/'unmute-btn' buttons.
 		if (typeof window.localStorage !== "undefined" && typeof window.localStorage.getItem === "function") {
 			var r = window.localStorage.getItem(game.isMuteKey);
