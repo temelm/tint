@@ -1,5 +1,5 @@
 var game = {
-	isDebug: true,
+	isDebug: false,
 	isMute: false,
 	isMuteKey: "tintIsMute",
 	nextLevelSound: new Audio("sound/next-level.mp3"),
