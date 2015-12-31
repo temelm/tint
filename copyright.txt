@@ -1,27 +1,26 @@
-+ config.xml                        : OWN
-
-+ css
-  - images
-    * ajax-loader.gif               : jQuery Mobile 1.4.5, http://jquerymobile.com/    ::    NO LINK BACK
-  - jquery.mobile-1.4.5.min.css     : jQuery Mobile 1.4.5, http://jquerymobile.com/    ::    NO LINK BACK
-  - styles.css                      : OWN
-  
-+ icon.png                          : OWN
-
++ config.xml							: OWN
++ dist                                  : SEE 'src' DIRECTORY
++ gulpfile.js							: N/A
++ icon.png								: OWN
 + img
-  - favicon.ico                     : OWN
-  - help.png                        : https://www.iconfinder.com/icons/172672/gesture_touch_icon    ::    PENDING
-  - muted-64.ico (PURCHASED)        : https://www.iconfinder.com/icons/473683/mute_off_silent_sound_ui_icon
-  - pause-64.ico (PURCHASED)        : https://www.iconfinder.com/icons/473678/pause_ui_icon
-  - unmuted-64.ico (PURCHASED)      : https://www.iconfinder.com/icons/473682/audio_sound_ui_volume_icon
-
-+ index.html                        : OWN
-
-+ js
-  - Please-compressed.js            : Please JS, Jordan Checkman 2014    ::    NO LINK BACK
-  - game.js                         : OWN
-  - jquery-2.1.4.min.js             : jQuery v2.1.4, https://jquery.com/    ::    NO LINK BACK
-  - jquery.mobile-1.4.5.min.js      : jQuery Mobile 1.4.5, http://jquerymobile.com/    ::    NO LINK BACK
-
+	- favicon.ico						: OWN
+	- help.png							: https://www.iconfinder.com/icons/172672/gesture_touch_icon :: PENDING
+	- muted-64.ico						: https://www.iconfinder.com/icons/473683/mute_off_silent_sound_ui_icon :: PURCHASED, NO LINK BACK
+	- pause-64.ico						: https://www.iconfinder.com/icons/473678/pause_ui_icon :: PURCHASED, NO LINK BACK
+	- unmuted-64.ico					: https://www.iconfinder.com/icons/473682/audio_sound_ui_volume_icon PURCHASED, NO LINK BACK
++ index.html							: OWN
++ node_modules							: N/A
++ package.json							: N/A
 + sound
-  - next-level.mp3                  : https://appraw.com/ringtone/water-drop-mk4bn    ::    PENDING
+	- next-level.mp3					: https://appraw.com/ringtone/water-drop-mk4bn :: PENDING
++ src
+	- css
+		* images
+			# ajax-loader.gif			: jQuery Mobile v1.4.5, https://jquerymobile.com/ :: NO LINK BACK
+		* jquery.mobile-1.4.5.min.css	: jQuery Mobile v1.4.5, https://jquerymobile.com/ :: NO LINK BACK
+		* styles.css					: OWN
+	- js
+		* Please-compressed.js			: Please JS, Jordan Checkman, http://checkman.io/please/ :: NO LINK BACK
+		* game.js						: OWN
+		* jquery-2.1.4.min.js			: jQuery v2.1.4, https://jquery.com/ :: NO LINK BACK
+		* jquery.mobile-1.4.5.min.js	: jQuery Mobile v1.4.5, https://jquerymobile.com/ :: NO LINK BACK
