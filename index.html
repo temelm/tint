@@ -10,10 +10,22 @@
 		<link href="img/favicon.ico" rel="icon">
 		<link href="dist/app.css" rel="stylesheet">
 		
+		<!-- phonegap.js needs to be referenced (even though the source file does not exist) in order to access the PhoneGap API. -->
+		<script src="phonegap.js"></script>
 		<script src="dist/app.js"></script>
+		<script>
+		    function onLoad() {
+		        document.addEventListener("deviceready", onDeviceReady);
+		    }
+		    function onDeviceReady() {
+		        document.addEventListener("backbutton", onBackButton);
+		    }
+		    function onBackButton () {
+		    }
+		</script>
 	</head>
 	
-	<body>
+	<body onload="onLoad()">
 		<div data-role="page" id="main-menu">
 			<div data-role="header" data-position="fixed">
 				<h1>tint</h1>
