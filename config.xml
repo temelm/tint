@@ -9,8 +9,7 @@
 	
 	<platform name="android"/>
 
-    <preference name="phonegap-version" value="cli-6.3.0"/>
-    <preference name="permissions" value="none"/>
+	<preference name="permissions" value="none"/>
 	<preference name="orientation" value="portrait"/>
 
 	<icon src="icon.png"/>
