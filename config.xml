@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.temelm.tint" version="1.0.1">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.temelm.tint" version="1.2.0">
 	<name>tint</name>
 	
 	<description>tap on the tile with the different tint</description>
@@ -9,6 +9,7 @@
 	
 	<platform name="android"/>
 
+    <preference name="phonegap-version" value="cli-6.3.0"/>
     <preference name="permissions" value="none"/>
 	<preference name="orientation" value="portrait"/>
 
